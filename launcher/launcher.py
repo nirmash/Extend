@@ -18,7 +18,7 @@ class launcher:
             #inject the code into the template
             strNew = strTpl.replace ("#$CODE$", strCode)
             #write the new file to the runtime directory
-            strNewFileName = os.path.join ('launcher','runtime', str (uuid.uuid4 ())) + ".py"
+            strNewFileName = '../launcher/runtime' + str (uuid.uuid4 ()) + ".py"
             NewFile = open (strNewFileName, "w")
             NewFile.write (strNew)
             NewFile.close () 
@@ -30,6 +30,5 @@ class launcher:
             #delete the new file
             os.remove (strNewFileName)
             return ret
-
         except:
-            sys.exit (1)
+            return "Error"

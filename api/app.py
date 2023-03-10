@@ -12,12 +12,12 @@ from launcher import launcher
 def exec_code():
     try:
         data = request.form
-        strNewFileName = os.path.join ('launcher','code', str (uuid.uuid4 ())) + ".txt"
+        strNewFileName = "../launcher/code/" + str (uuid.uuid4 ()) + ".txt"
         NewFile = open (strNewFileName, "w")
         NewFile.write (str(data['code']))
         NewFile.close () 
-        args=["launcher/templates/generic.py",strNewFileName,data['args']]
-        ret = launcher.launcher.Launch(args)
+        args=["../launcher/templates/generic.py",strNewFileName,data['args']]
+        ret = launcher.Launch(args)
         os.remove (strNewFileName)
         return ret
     except:
