@@ -16,7 +16,7 @@ def exec_code():
         NewFile = open (strNewFileName, "w")
         NewFile.write (str(data['code']))
         NewFile.close () 
-        args=["../launcher/templates/generic.py",strNewFileName,data['args']]
+        args=["../launcher/templates/generic.py",strNewFileName]
         ret = launcher.Launch(args)
         os.remove (strNewFileName)
         return ret
