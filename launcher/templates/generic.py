@@ -8,13 +8,23 @@ def CreateList(name, description):
         "name" : name,
         "description" : description
     }
-    response = requests.get(todo_endpoint,json=list)
-    if response.status_code == 200:
+    response = requests.post(todo_endpoint,json=list)
+    if response.status_code < 299:
         print("List Created")
         print(response.json())
         return response.json()
     else:
         print("List creation failed")
+        return None
+
+def GetLists():
+    response = requests.get(todo_endpoint)
+    if response.status_code == 200:
+        print("Lists")
+        print(response.json())
+        return response.json()
+    else:
+        print("Lists get failed")
         return None
 
 def GetList(list_id):
@@ -43,7 +53,7 @@ def UpdateList(list_id, name, description):
     
 def DeleteList(list_id):
     response = requests.delete(todo_endpoint + list_id)
-    if response.status_code == 200:
+    if response.status_code == 204:
         print("List deleted")
     else:
         print("List deletion failed")
@@ -66,7 +76,7 @@ def CreateListItem(list_id, name, description, state):
         "state" : state
     }
     response = requests.post(todo_endpoint + list_id + "/items", json=item)
-    if response.status_code == 200:
+    if response.status_code == 201:
         print("List item created")
         print(response.json())
         return response.json()
@@ -84,6 +94,8 @@ def GetListItem(list_id, item_id):
         print("List item get failed")
         return None
     
+#UpdateListItem('f1579047-e784-4349-9acb-c6db99aa830d','9700516d-16e2-4b7f-a2d3-c3b53cbe4570','changed','changed','todo','2021-04-01T00:00:00Z','2021-04-01T00:00:00Z')
+
 def UpdateListItem(list_id, item_id, name, description, state,completedDate, dueDate):
     item = {
         "name" : name,
@@ -93,6 +105,8 @@ def UpdateListItem(list_id, item_id, name, description, state,completedDate, due
         "dueDate" : dueDate
     }
     response = requests.put(todo_endpoint + list_id + "/items/" + item_id, json=item)
+    print(todo_endpoint + list_id + "/items/" + item_id)
+    print(response.status_code)
     if response.status_code == 200:
         print("List item updated")
         print(response.json())
@@ -103,7 +117,7 @@ def UpdateListItem(list_id, item_id, name, description, state,completedDate, due
        
 def DeleteListItem(list_id, item_id):
     response = requests.delete(todo_endpoint + list_id + "/items/" + item_id)
-    if response.status_code == 200:
+    if response.status_code == 204:
         print("List item deleted")
     else:
         print("List item deletion failed")

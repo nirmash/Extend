@@ -8,7 +8,7 @@ app = Flask(__name__)
 sys.path.append("../launcher")
 from launcher import launcher
 
-@app.route('/exec_code',methods=['POST'])
+@app.route('/exec_code',methods=['POST','GET'])
 def exec_code():
     try:
         data = request.form
