@@ -8,6 +8,11 @@ app = Flask(__name__)
 sys.path.append("../launcher")
 from launcher import launcher
 
+@app.route('/ping',methods=['POST','GET'])
+def ping():
+    return "pong"
+
+
 @app.route('/exec_code',methods=['POST','GET'])
 def exec_code():
     try:
@@ -16,7 +21,7 @@ def exec_code():
         NewFile = open (strNewFileName, "w")
         NewFile.write (str(data['code']))
         NewFile.close () 
-        args=["../launcher/templates/generic.py",strNewFileName]
+        args=["../launcher/templates/generic.py",strNewFileName,str(data['list_id']),str(data['item_id']) ]
         ret = launcher.Launch(args)
         os.remove (strNewFileName)
         return ret

@@ -8,8 +8,6 @@ class launcher:
         try:
             tplName = args [0]
             codeFile = args [1]
-    #        tplNam e = "templates/generic.py"
-    #        codeFile = "code/cd1.txt"
 
             #open the code file
             strCode = open (codeFile, "r").read ()
