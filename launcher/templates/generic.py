@@ -13,7 +13,6 @@ def CreateList(name, description):
     }
     response = requests.post(todo_endpoint,json=list, headers=custom_headers)
     if response.status_code < 299:
-        print("List Created")
         print(response.json())
         return response.json()
     else:
@@ -23,7 +22,6 @@ def CreateList(name, description):
 def GetLists():
     response = requests.get(todo_endpoint)
     if response.status_code == 200:
-        print("Lists")
         print(response.json())
         return response.json()
     else:
@@ -33,7 +31,6 @@ def GetLists():
 def GetList(list_id):
     response = requests.get(todo_endpoint + list_id)
     if response.status_code == 200:
-        print("List information")
         print(response.json())
         return response.json()
     else:
@@ -50,7 +47,6 @@ def UpdateList(list_id, name, description):
     }
     response = requests.put(todo_endpoint + list_id, json=list, headers=custom_headers)
     if response.status_code == 200:
-        print("List updated")
         print(response.json())
         return response.json()
     else:
@@ -72,7 +68,6 @@ def DeleteList(list_id):
 def GetListItems(list_id):
     response = requests.get(todo_endpoint + list_id + "/items")
     if response.status_code == 200:
-        print("List items")
         print(response.json())
         return response.json()
     else:
@@ -90,7 +85,6 @@ def CreateListItem(list_id, name, description, state):
     }
     response = requests.post(todo_endpoint + list_id + "/items", json=item, headers=custom_headers)
     if response.status_code == 201:
-        print("List item created")
         print(response.json())
         return response.json()
     else:
@@ -100,7 +94,6 @@ def CreateListItem(list_id, name, description, state):
 def GetListItem(list_id, item_id):
     response = requests.get(todo_endpoint + list_id + "/items/" + item_id)
     if response.status_code == 200:
-        print("List item information")
         print(response.json())
         return response.json()
     else:
@@ -119,10 +112,7 @@ def UpdateListItem(list_id, item_id, name, description, state,completedDate, due
         "call-source": "extension"
     }
     response = requests.put(todo_endpoint + list_id + "/items/" + item_id, json=item, headers=custom_headers)
-    print(todo_endpoint + list_id + "/items/" + item_id)
-    print(response.status_code)
     if response.status_code == 200:
-        print("List item updated")
         print(response.json())
         return response.json()
     else:
