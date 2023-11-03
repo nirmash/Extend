@@ -1,5 +1,7 @@
 import sys
 import requests
+import json
+import urllib.parse
 
 todo_endpoint = "https://api-service.victorioussea-1e5e534f.eastus2.azurecontainerapps.io/lists/"
 
@@ -100,13 +102,16 @@ def GetListItem(list_id, item_id):
         print("List item get failed")
         return None
     
-def UpdateListItem(list_id, item_id, name, description, state,completedDate, dueDate):
+def UpdateListItem(list_id, item_id, name, description, state,completedDate, dueDate, list):
     item = {
+        "id" : item_id,
+        "list": list,
+        "listId": list_id,
         "name" : name,
         "description" : description,
         "state" : state,
         "completedDate" : completedDate,
-        "dueDate" : dueDate
+        "dueDate" : dueDate        
     }
     custom_headers = {
         "call-source": "extension"
@@ -141,8 +146,11 @@ def GetListItemsByState(list_id, state):
         print("List items get failed")
         return None
 
+#remember to push the container
+
 def injected (args):
-    #$CODE$
+
+#$CODE$
 
 def parse_args(args):
     try:
